@@ -33,7 +33,5 @@ void setup()
  */ 
 void loop() 
 {
-  controller.CheckButtons();  
-  controller.DrawScreen();
-  controller.BluetoothCommunications(); 
+  controller.Loop();
 }

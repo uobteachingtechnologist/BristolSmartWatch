@@ -40,6 +40,27 @@ void Controller::Setup(){
 }
 
 /*
+ * FUNCTION Loop()
+ * 
+ * Performs check for button state updates, screen updates
+ * and checks for bluetooth communication.
+ * 
+ * @param (void)
+ * @return (void)
+ * 
+ */
+void Controller::Loop(){
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time we last checked for updates
+    previousMillis = currentMillis;
+    CheckButtons();
+    DrawScreen();
+    BluetoothCommunications();
+  }
+}
+
+/*
  * FUNCTION CheckButtons()
  * 
  * Checks the states of all the hardware buttons.
