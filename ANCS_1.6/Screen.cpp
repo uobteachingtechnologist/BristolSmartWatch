@@ -42,7 +42,7 @@ void Screen::DrawDate(String date) {
  * Sets the position and font size for the temperature
  * and draws to screen.
  * 
- * @param (String temperature)
+ * @param (int temperature)
  * @return (void)
  * 
  */ 

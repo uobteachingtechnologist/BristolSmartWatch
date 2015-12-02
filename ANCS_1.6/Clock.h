@@ -9,7 +9,6 @@
  *  Class wraps the DS3231 object and had
  *  methods to get information from it
  */
- 
 class Clock
 {
 private:
