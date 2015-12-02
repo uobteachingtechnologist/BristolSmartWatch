@@ -14,16 +14,19 @@
 class Controller {
   private:
     const int arduinoLED = 17;
+    const int buttonstate = 8; // Other button pin
+    const int sleepwake = 6; // Sleep wake button pin
+    const int tiltscreen = 5; // Tilt sensor pin
+    const int led = 9; // LED pin
+    const int vibrate = 4; // Vibration motor pin
   
     int screen = 0;
     int screensleep = 0;
-    int buttonstate = 8; // Other button pin
-    int sleepwake = 6; // Sleep wake button pin
-    int tiltscreen = 5; // Tilt sensor pin
-    int led = 9; // LED pin
     Clock clock; // Decleration for RTC
-    int vibrate = 4; // Vibration motor pin
     int number; // Number of notifications on phone
+
+    unsigned long previousMillis = 0; // Stores last time watch was updated
+    const long interval = 1000; // interval at which to check for watch updates (milliseconds)
 
     U8GLIB_SH1106_128X64 u8g; 
 
@@ -32,25 +35,6 @@ class Controller {
     SoftwareSerial mySerial; // RX, TX
     
     BluetoothCommunication bluetoothCommunication; 
-  public:
-    Controller()
-    // Using initialiser lists to initialise the objects.
-    : mySerial(10, 16),
-      bluetoothCommunication(&mySerial),
-      u8g(U8G_I2C_OPT_NO_ACK),
-      displayScreen(&u8g)
-    {};
-
-   /*
-    * FUNCTION Setup()
-    * 
-    * Performs initial setup of Arduino hardware.
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void Setup();
 
    /*
     * FUNCTION CheckButtons()
@@ -86,5 +70,36 @@ class Controller {
     * 
     */
     void BluetoothCommunications();
+  public:
+    Controller()
+    // Using initialiser list to initialise the objects.
+    : mySerial(10, 16),
+      bluetoothCommunication(&mySerial),
+      u8g(U8G_I2C_OPT_NO_ACK),
+      displayScreen(&u8g)
+    {};
+
+   /*
+    * FUNCTION Setup()
+    * 
+    * Performs initial setup of Arduino hardware.
+    * 
+    * @param (void)
+    * @return (void)
+    * 
+    */
+    void Setup();
+
+   /*
+    * FUNCTION Loop()
+    * 
+    * Performs check for button state updates, screen updates
+    * and checks for bluetooth communication.
+    * 
+    * @param (void)
+    * @return (void)
+    * 
+    */
+    void Loop();
 };
 #endif
