@@ -1,9 +1,9 @@
 #ifndef BLUETOOTHCOMMUNICATION_H
 #define BLUETOOTHCOMMUNICATION_H 
 
+#include <SoftwareSerial.h>
 #include <DS3231.h>
 #include "Screen.h"
-#include <SoftwareSerial.h>
 
 /*
  *  CLASS BluetoothCommunication
@@ -11,7 +11,6 @@
  *  Communicates with the paired IOS device and saves
  *  information from messages it recieves to member variables.
  */
-
 class BluetoothCommunication 
 {
   SoftwareSerial *mySerial;

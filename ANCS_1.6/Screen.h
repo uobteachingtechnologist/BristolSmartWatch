@@ -13,9 +13,9 @@
 class Screen
 {
 private:
-  U8GLIB_SH1106_128X64 *u8g; 
+  U8GLIB_SH1106_128X64 *u8g;
 public:
-       Screen(U8GLIB_SH1106_128X64* u8g){this->u8g = u8g;};
+  Screen(U8GLIB_SH1106_128X64* u8g){this->u8g = u8g;};
        
  /*
   * FUNCTION DrawDate()

@@ -1,20 +1,19 @@
-#include "BluetoothCommunication.h"
+#include "BluetoothCommunication.h"
 
-    /*
-     * FUNCTION Read()
-     * 
-     * Recieves a string from the phone. This string contains a unique id identifying the notifcation.
-     * The rest of the code extracts the the last four digits of the unique string. It then uses this
-     * unique identifier to make another request to the phone for information about that specific
-     * notification so that it can be displayed on the screen of the watch. The name of the sender
-     * and subject of the message are set member variables of the class 'Name' and 'Subject2' and these
-     * can be accessed through the corresponding Get methods.
-     * 
-     * @param (void)
-     * @return (void)
-     * 
-     */ 
-
+/*
+ * FUNCTION Read()
+ * 
+ * Recieves a string from the phone. This string contains a unique id identifying the notifcation.
+ * The rest of the code extracts the the last four digits of the unique string. It then uses this
+ * unique identifier to make another request to the phone for information about that specific
+ * notification so that it can be displayed on the screen of the watch. The name of the sender
+ * and subject of the message are set member variables of the class 'Name' and 'Subject2' and these
+ * can be accessed through the corresponding Get methods.
+ * 
+ * @param (void)
+ * @return (void)
+ * 
+ */
 void BluetoothCommunication::Read() {
   while (mySerial->available()) {
     char c = (char)mySerial->read();
