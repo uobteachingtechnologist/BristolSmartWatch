@@ -1,5 +1,5 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef WATCH_H
+#define WATCH_H
 
 #include "Clock.h"
 #include "BluetoothCommunication.h"
@@ -11,7 +11,7 @@
  *  Class used to control the watch
  *  and associated functions.
  */
-class Controller {
+class Watch {
   private:
     const int arduinoLED = 17;
     const int buttonstate = 8; // Other button pin
@@ -71,7 +71,7 @@ class Controller {
     */
     void BluetoothCommunications();
   public:
-    Controller()
+    Watch()
     // Using initialiser list to initialise the objects.
     : mySerial(10, 16),
       bluetoothCommunication(&mySerial),
@@ -80,7 +80,7 @@ class Controller {
     {};
 
    /*
-    * FUNCTION Setup()
+    * FUNCTION HardwareInit()
     * 
     * Performs initial setup of Arduino hardware.
     * 
@@ -88,10 +88,10 @@ class Controller {
     * @return (void)
     * 
     */
-    void Setup();
+    void HardwareInit();
 
    /*
-    * FUNCTION Loop()
+    * FUNCTION Update()
     * 
     * Performs check for button state updates, screen updates
     * and checks for bluetooth communication.
@@ -100,6 +100,6 @@ class Controller {
     * @return (void)
     * 
     */
-    void Loop();
+    void Update();
 };
 #endif

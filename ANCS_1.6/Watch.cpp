@@ -1,7 +1,7 @@
-#include "Controller.h"
+#include "Watch.h"
 
 /*
- * FUNCTION Setup()
+ * FUNCTION HardwareInit()
  * 
  * Performs initial setup of Arduino hardware.
  * 
@@ -9,7 +9,7 @@
  * @return (void)
  * 
  */
-void Controller::Setup(){
+void Watch::HardwareInit(){
   Wire.begin();
   Serial.begin(9600);
   pinMode(arduinoLED, OUTPUT);
@@ -40,7 +40,7 @@ void Controller::Setup(){
 }
 
 /*
- * FUNCTION Loop()
+ * FUNCTION Update()
  * 
  * Performs check for button state updates, screen updates
  * and checks for bluetooth communication.
@@ -49,15 +49,15 @@ void Controller::Setup(){
  * @return (void)
  * 
  */
-void Controller::Loop(){
+void Watch::Update(){
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
     // save the last time we last checked for updates
     previousMillis = currentMillis;
-    CheckButtons();
     DrawScreen();
     BluetoothCommunications();
   }
+  CheckButtons();
 }
 
 /*
@@ -69,7 +69,7 @@ void Controller::Loop(){
  * @return (void)
  * 
  */ 
-void Controller::CheckButtons() {
+void Watch::CheckButtons() {
   //Goes to notification page
   if (digitalRead(buttonstate) == LOW) {
     delay(100);
@@ -111,7 +111,7 @@ void Controller::CheckButtons() {
  * @return (void)
  * 
  */ 
-void Controller::DrawScreen(void) {
+void Watch::DrawScreen(void) {
   u8g.firstPage();
   do {
     displayScreen.DrawNotifications(number);
@@ -134,7 +134,7 @@ void Controller::DrawScreen(void) {
  * @return (void)
  * 
  */ 
-void Controller::BluetoothCommunications() {
+void Watch::BluetoothCommunications() {
   bluetoothCommunication.Read();
   
   if(bluetoothCommunication.GetNewMessage()) {

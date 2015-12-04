@@ -42,10 +42,10 @@ public:
   * 
   * Returns (void)
   * 
-  * @param (int temperate) Temperature to be drawn to screen
+  * @param (int temperature) Temperature to be drawn to screen
   * @return (void)
   */
-  void DrawTemperature(int temperate);
+  void DrawTemperature(int temperature);
 
  /*
   * FUNCTION DrawNotifications()

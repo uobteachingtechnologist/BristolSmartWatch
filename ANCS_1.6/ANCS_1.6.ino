@@ -2,9 +2,9 @@
 #include "U8glib.h"
 #include <DS3231.h>
 #include <Wire.h>
-#include "Controller.h"
+#include "Watch.h"
 
-Controller controller;
+Watch watch;
 
 /*
  * FUNCTION setup()
@@ -18,7 +18,7 @@ Controller controller;
 void setup()
 {
   // Setup watch
-  controller.Setup();
+  watch.HardwareInit();
 }
 
 /*
@@ -33,5 +33,5 @@ void setup()
  */ 
 void loop() 
 {
-  controller.Loop();
+  watch.Update();
 }
