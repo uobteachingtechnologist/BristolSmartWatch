@@ -17,7 +17,6 @@ Watch watch;
  */ 
 void setup()
 {
-  // Setup watch
   watch.HardwareInit();
 }
 

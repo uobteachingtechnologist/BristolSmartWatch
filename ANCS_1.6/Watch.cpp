@@ -16,21 +16,21 @@ void Watch::HardwareInit(){
   digitalWrite(arduinoLED, LOW);
 
   //Button number 1 ************************************************************************************
-  pinMode(buttonstate, INPUT_PULLUP);           // set pin to input
-  digitalWrite(buttonstate, HIGH);
+  pinMode(button1, INPUT_PULLUP);           // set pin to input
+  digitalWrite(button1, HIGH);
 
 
   //Button number 2 ************************************************************************************
-  pinMode(sleepwake, INPUT_PULLUP);           // set pin to input
-  digitalWrite(sleepwake, HIGH);
+  pinMode(button2, INPUT_PULLUP);           // set pin to input
+  digitalWrite(button2, HIGH);
 
   //tilt screen ************************************************************************************
   pinMode(tiltscreen, INPUT_PULLUP);           // set pin to input
   digitalWrite(tiltscreen, LOW);
 
   // FlashLight  ************************************************************************************
-  pinMode(led, OUTPUT);
-  digitalWrite(led , LOW);
+  pinMode(externalLED, OUTPUT);
+  digitalWrite(externalLED , LOW);
 
   //Vibration Motor should be connected to GND  ************************************************************************************
   pinMode(vibrate, OUTPUT);
@@ -70,34 +70,58 @@ void Watch::Update(){
  * 
  */ 
 void Watch::CheckButtons() {
-  //Goes to notification page
-  if (digitalRead(buttonstate) == LOW) {
-    delay(100);
-    if (screen == 0) {
-      screen = 1;
-    }
-    else {
-      screen = 0;
-    }
-  }
+  CheckLEDButton();
+  CheckScreenOffButton();
+}
 
-  // Turns the screen off
-  if (digitalRead(sleepwake) == LOW) {
+/*
+ * FUNCTION CheckLEDButton()
+ * 
+ * Checks the state of the LED button and updates the external LED state.     
+ * 
+ * @param (void)     
+ * @return (void)
+ * 
+ */
+void Watch::CheckLEDButton(){
+  if (digitalRead(button1) == LOW) {
     delay(100);
-    if (screensleep == 0) {
-      screensleep = 1;
-    }
-    else {
-      screensleep = 0;
-    }
-  }
+    isExternalLEDOn = !isExternalLEDOn;
+  }  
+  UpdateExternalLEDState();
+}
 
-  // Turns on the Flash Light
-  if (screen == 1) {
-    digitalWrite(led , HIGH);
+/*
+ * FUNCTION UpdateExternalLEDState()
+ * 
+ * Updates the external LED state.     
+ * 
+ * @param (void)     
+ * @return (void)
+ * 
+ */
+void Watch::UpdateExternalLEDState(){
+  if (isExternalLEDOn) {
+    digitalWrite(externalLED , HIGH);
   } else {
-    digitalWrite(led, LOW);
+    digitalWrite(externalLED, LOW);
   }
+}
+
+/*
+ * FUNCTION CheckScreenOffButton()
+ * 
+ * Checks the state of the screen off button and updates the screen power state.
+ * 
+ * @param (void)
+ * @param (void)
+ * 
+ */
+void Watch::CheckScreenOffButton(){
+  if (digitalRead(button2) == LOW) {
+    delay(100);
+    isScreenOff = !isScreenOff;
+  }  
 }
 
 

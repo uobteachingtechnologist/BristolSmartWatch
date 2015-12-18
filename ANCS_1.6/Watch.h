@@ -13,15 +13,16 @@
  */
 class Watch {
   private:
+    // Pin numbers
     const int arduinoLED = 17;
-    const int buttonstate = 8; // Other button pin
-    const int sleepwake = 6; // Sleep wake button pin
-    const int tiltscreen = 5; // Tilt sensor pin
-    const int led = 9; // LED pin
-    const int vibrate = 4; // Vibration motor pin
+    const int button1 = 8;
+    const int button2 = 6;
+    const int tiltscreen = 5;
+    const int externalLED = 9;
+    const int vibrate = 4;
   
-    int screen = 0;
-    int screensleep = 0;
+    boolean isExternalLEDOn = false;
+    boolean isScreenOff = false;
     Clock clock; // Decleration for RTC
     int number; // Number of notifications on phone
 
@@ -34,7 +35,7 @@ class Watch {
     
     SoftwareSerial mySerial; // RX, TX
     
-    BluetoothCommunication bluetoothCommunication; 
+    BluetoothCommunication bluetoothCommunication;
 
    /*
     * FUNCTION CheckButtons()
@@ -46,6 +47,39 @@ class Watch {
     * 
     */
     void CheckButtons();
+
+   /*
+    * FUNCTION CheckLEDButton()
+    * 
+    * Checks the state of the LED button and updates the external LED state.     
+    * 
+    * @param (void)     
+    * @return (void)
+    * 
+    */
+    void CheckLEDButton();
+
+   /*
+    * FUNCTION UpdateExternalLEDState()
+    * 
+    * Updates the external LED state.     
+    * 
+    * @param (void)     
+    * @return (void)
+    * 
+    */
+    void UpdateExternalLEDState();
+
+   /*
+    * FUNCTION CheckScreenOffButton()
+    * 
+    * Checks the state of the screen off button and updates the screen power state.
+    * 
+    * @param (void)
+    * @param (void)
+    * 
+    */
+    void CheckScreenOffButton();
 
    /*
     * FUNCTION DrawScreen()

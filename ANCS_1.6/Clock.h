@@ -13,7 +13,7 @@ class Clock
 {
 private:
   DS3231 timer; 
-  bool PM, Century=false, h12;
+  boolean PM, Century=false, h12;
   
 public:
     Clock(){};

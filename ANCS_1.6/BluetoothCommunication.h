@@ -14,7 +14,7 @@
 class BluetoothCommunication 
 {
   SoftwareSerial *mySerial;
-  bool newMessage = false;
+  boolean newMessage = false;
   char Title [15];
   char Message[15];
   boolean printed = true;
