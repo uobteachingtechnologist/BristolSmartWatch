@@ -9,34 +9,33 @@
  * @return (void)
  * 
  */
-void Watch::HardwareInit(){
-  Wire.begin();
-  Serial.begin(9600);
-  pinMode(arduinoLED, OUTPUT);
-  digitalWrite(arduinoLED, LOW);
+void Watch::HardwareInit() {
+	Wire.begin();
+	Serial.begin(9600);
+	pinMode(ARDUINO_LED, OUTPUT);
+	digitalWrite(ARDUINO_LED, LOW);
 
-  //Button number 1 ************************************************************************************
-  pinMode(button1, INPUT_PULLUP);           // set pin to input
-  digitalWrite(button1, HIGH);
+	//Button number 1 ************************************************************************************
+	pinMode(BUTTON_1, INPUT_PULLUP);           // set pin to input
+	digitalWrite(BUTTON_1, HIGH);
 
+	//Button number 2 ************************************************************************************
+	pinMode(BUTTON_2, INPUT_PULLUP);           // set pin to input
+	digitalWrite(BUTTON_2, HIGH);
 
-  //Button number 2 ************************************************************************************
-  pinMode(button2, INPUT_PULLUP);           // set pin to input
-  digitalWrite(button2, HIGH);
+	//tilt screen ************************************************************************************
+	pinMode(TILT_SWITCH, INPUT_PULLUP);           // set pin to input
+	digitalWrite(TILT_SWITCH, LOW);
 
-  //tilt screen ************************************************************************************
-  pinMode(tiltscreen, INPUT_PULLUP);           // set pin to input
-  digitalWrite(tiltscreen, LOW);
+	// FlashLight  ************************************************************************************
+	pinMode(EXTERNAL_LED, OUTPUT);
+	digitalWrite(EXTERNAL_LED, LOW);
 
-  // FlashLight  ************************************************************************************
-  pinMode(externalLED, OUTPUT);
-  digitalWrite(externalLED , LOW);
+	//Vibration Motor should be connected to GND  ************************************************************************************
+	pinMode(VIBRATION_MOTOR, OUTPUT);
+	digitalWrite(VIBRATION_MOTOR, LOW);
 
-  //Vibration Motor should be connected to GND  ************************************************************************************
-  pinMode(vibrate, OUTPUT);
-  digitalWrite(vibrate, LOW);
-
-  mySerial.begin(9600);
+	bluetoothSerial.begin(9600);
 }
 
 /*
@@ -49,15 +48,14 @@ void Watch::HardwareInit(){
  * @return (void)
  * 
  */
-void Watch::Update(){
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
-    // save the last time we last checked for updates
-    previousMillis = currentMillis;
-    DrawScreen();
-    BluetoothCommunications();
-  }
-  CheckButtons();
+void Watch::Update() {
+	unsigned long currentMillis = millis();
+	if (currentMillis - previousMillis >= interval) {
+		previousMillis = currentMillis;
+		DrawScreen();
+		BluetoothCommunications();
+	}
+	CheckButtons();
 }
 
 /*
@@ -68,10 +66,10 @@ void Watch::Update(){
  * @param (void)
  * @return (void)
  * 
- */ 
+ */
 void Watch::CheckButtons() {
-  CheckLEDButton();
-  CheckScreenOffButton();
+	CheckLEDButton();
+	CheckScreenOffButton();
 }
 
 /*
@@ -83,12 +81,12 @@ void Watch::CheckButtons() {
  * @return (void)
  * 
  */
-void Watch::CheckLEDButton(){
-  if (digitalRead(button1) == LOW) {
-    delay(100);
-    isExternalLEDOn = !isExternalLEDOn;
-  }  
-  UpdateExternalLEDState();
+void Watch::CheckLEDButton() {
+	if (digitalRead(BUTTON_1) == LOW) {
+		delay(100);
+		isExternalLEDOn = !isExternalLEDOn;
+	}
+	UpdateExternalLEDState();
 }
 
 /*
@@ -100,12 +98,12 @@ void Watch::CheckLEDButton(){
  * @return (void)
  * 
  */
-void Watch::UpdateExternalLEDState(){
-  if (isExternalLEDOn) {
-    digitalWrite(externalLED , HIGH);
-  } else {
-    digitalWrite(externalLED, LOW);
-  }
+void Watch::UpdateExternalLEDState() {
+	if (isExternalLEDOn) {
+		digitalWrite(EXTERNAL_LED, HIGH);
+	} else {
+		digitalWrite(EXTERNAL_LED, LOW);
+	}
 }
 
 /*
@@ -117,13 +115,12 @@ void Watch::UpdateExternalLEDState(){
  * @param (void)
  * 
  */
-void Watch::CheckScreenOffButton(){
-  if (digitalRead(button2) == LOW) {
-    delay(100);
-    isScreenOff = !isScreenOff;
-  }  
+void Watch::CheckScreenOffButton() {
+	if (digitalRead(BUTTON_2) == LOW) {
+		delay(100);
+		isScreenOff = !isScreenOff;
+	}
 }
-
 
 /*
  * FUNCTION DrawScreen()
@@ -134,18 +131,16 @@ void Watch::CheckScreenOffButton(){
  * @param (void)
  * @return (void)
  * 
- */ 
+ */
 void Watch::DrawScreen(void) {
-  u8g.firstPage();
-  do {
-    displayScreen.DrawNotifications(number);
-    displayScreen.DrawTime(clock.GetTime());
-    displayScreen.DrawDate(clock.GetDate());
-    displayScreen.DrawTemperature(clock.GetTemperature());
-  }
-  while ( u8g.nextPage() );
+	u8g.firstPage();
+	do {
+		displayScreen.DrawNotifications(numberOfNotifications);
+		displayScreen.DrawTime(clock.GetTime());
+		displayScreen.DrawDate(clock.GetDate());
+		displayScreen.DrawTemperature(clock.GetTemperature());
+	} while (u8g.nextPage());
 }
-
 
 /*
  * FUNCTION BluetoothCommuncations()
@@ -157,25 +152,25 @@ void Watch::DrawScreen(void) {
  * @param (void)
  * @return (void)
  * 
- */ 
+ */
 void Watch::BluetoothCommunications() {
-  bluetoothCommunication.Read();
-  
-  if(bluetoothCommunication.GetNewMessage()) {
-    displayScreen.DrawMessageSender(bluetoothCommunication.GetName(), 
-                                    bluetoothCommunication.GetSubject());
-    bluetoothCommunication.SetNewMessage(false);
-   
-    //Time to display message
-    delay(2000); 
-  }
-  
-  int temp = bluetoothCommunication.GetNumber();
-  if(temp != number && temp > '0') {
-    digitalWrite(vibrate, HIGH);
-    delay(300);
-    digitalWrite(vibrate, LOW);
-  }
-  number = bluetoothCommunication.GetNumber();
+	bluetoothCommunication.Read();
+
+	if (bluetoothCommunication.GetNewMessage()) {
+		displayScreen.DrawMessageSender(bluetoothCommunication.GetName(),
+				bluetoothCommunication.GetSubject());
+		bluetoothCommunication.SetNewMessage(false);
+
+		//Time to display message
+		delay(2000);
+	}
+
+	int temp = bluetoothCommunication.GetNumber();
+	if (temp != numberOfNotifications && temp > '0') {
+		digitalWrite(VIBRATION_MOTOR, HIGH);
+		delay(300);
+		digitalWrite(VIBRATION_MOTOR, LOW);
+	}
+	numberOfNotifications = bluetoothCommunication.GetNumber();
 }
 

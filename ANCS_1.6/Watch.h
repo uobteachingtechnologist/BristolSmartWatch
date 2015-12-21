@@ -12,128 +12,130 @@
  *  and associated functions.
  */
 class Watch {
-  private:
-    // Pin numbers
-    const int arduinoLED = 17;
-    const int button1 = 8;
-    const int button2 = 6;
-    const int tiltscreen = 5;
-    const int externalLED = 9;
-    const int vibrate = 4;
-  
-    boolean isExternalLEDOn = false;
-    boolean isScreenOff = false;
-    Clock clock; // Decleration for RTC
-    int number; // Number of notifications on phone
+private:
+	// Pin numbers
+	const int ARDUINO_LED = 17;
+	const int BUTTON_1 = 8;
+	const int BUTTON_2 = 6;
+	const int TILT_SWITCH = 5;
+	const int EXTERNAL_LED = 9;
+	const int VIBRATION_MOTOR = 4;
+	const int RX = 10;
+	const int TX = 16;
 
-    unsigned long previousMillis = 0; // Stores last time watch was updated
-    const long interval = 1000; // interval at which to check for watch updates (milliseconds)
+	boolean isExternalLEDOn = false;
+	boolean isScreenOff = false;
+	Clock clock;
+	int numberOfNotifications;
 
-    U8GLIB_SH1106_128X64 u8g; 
+	unsigned long previousMillis = 0; // Stores last time watch was updated
+	const long interval = 1000; // interval at which to check for watch updates (milliseconds)
 
-    Screen displayScreen;
-    
-    SoftwareSerial mySerial; // RX, TX
-    
-    BluetoothCommunication bluetoothCommunication;
+	U8GLIB_SH1106_128X64 u8g;
 
-   /*
-    * FUNCTION CheckButtons()
-    * 
-    * Checks the states of all the hardware buttons.
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void CheckButtons();
+	Screen displayScreen;
 
-   /*
-    * FUNCTION CheckLEDButton()
-    * 
-    * Checks the state of the LED button and updates the external LED state.     
-    * 
-    * @param (void)     
-    * @return (void)
-    * 
-    */
-    void CheckLEDButton();
+	SoftwareSerial bluetoothSerial; // RX, TX
 
-   /*
-    * FUNCTION UpdateExternalLEDState()
-    * 
-    * Updates the external LED state.     
-    * 
-    * @param (void)     
-    * @return (void)
-    * 
-    */
-    void UpdateExternalLEDState();
+	BluetoothCommunication bluetoothCommunication;
 
-   /*
-    * FUNCTION CheckScreenOffButton()
-    * 
-    * Checks the state of the screen off button and updates the screen power state.
-    * 
-    * @param (void)
-    * @param (void)
-    * 
-    */
-    void CheckScreenOffButton();
+	/*
+	 * FUNCTION CheckButtons()
+	 *
+	 * Checks the states of all the hardware buttons.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void CheckButtons();
 
-   /*
-    * FUNCTION DrawScreen()
-    * 
-    * Calls all of the appropriate methods to draw all information      * to the screen
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void DrawScreen();
+	/*
+	 * FUNCTION CheckLEDButton()
+	 *
+	 * Checks the state of the LED button and updates the external LED state.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void CheckLEDButton();
 
-   /*
-    * FUNCTION BluetoothCommuncations()
-    * 
-    * Calls BluetoothCommuncation.Read() to read any information
-    * over Bluetooth. Writes a notification to the screen if 
-    * there is a new notifcation and also vibrates.
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void BluetoothCommunications();
-  public:
-    Watch()
-    // Using initialiser list to initialise the objects.
-    : mySerial(10, 16),
-      bluetoothCommunication(&mySerial),
-      u8g(U8G_I2C_OPT_NO_ACK),
-      displayScreen(&u8g)
-    {};
+	/*
+	 * FUNCTION UpdateExternalLEDState()
+	 *
+	 * Updates the external LED state.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void UpdateExternalLEDState();
 
-   /*
-    * FUNCTION HardwareInit()
-    * 
-    * Performs initial setup of Arduino hardware.
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void HardwareInit();
+	/*
+	 * FUNCTION CheckScreenOffButton()
+	 *
+	 * Checks the state of the screen off button and updates the screen power state.
+	 *
+	 * @param (void)
+	 * @param (void)
+	 *
+	 */
+	void CheckScreenOffButton();
 
-   /*
-    * FUNCTION Update()
-    * 
-    * Performs check for button state updates, screen updates
-    * and checks for bluetooth communication.
-    * 
-    * @param (void)
-    * @return (void)
-    * 
-    */
-    void Update();
+	/*
+	 * FUNCTION DrawScreen()
+	 *
+	 * Calls all of the appropriate methods to draw all information      * to the screen
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void DrawScreen();
+
+	/*
+	 * FUNCTION BluetoothCommuncations()
+	 *
+	 * Calls BluetoothCommuncation.Read() to read any information
+	 * over Bluetooth. Writes a notification to the screen if
+	 * there is a new notifcation and also vibrates.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void BluetoothCommunications();
+public:
+	Watch()
+	// Using initialiser list to initialise the objects.
+	:
+			bluetoothSerial(RX, TX), bluetoothCommunication(&bluetoothSerial), u8g(
+					U8G_I2C_OPT_NO_ACK), displayScreen(&u8g) {
+	}
+	;
+
+	/*
+	 * FUNCTION HardwareInit()
+	 *
+	 * Performs initial setup of Arduino hardware.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void HardwareInit();
+
+	/*
+	 * FUNCTION Update()
+	 *
+	 * Performs check for button state updates, screen updates
+	 * and checks for bluetooth communication.
+	 *
+	 * @param (void)
+	 * @return (void)
+	 *
+	 */
+	void Update();
 };
 #endif

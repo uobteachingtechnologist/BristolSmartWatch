@@ -9,46 +9,46 @@
  *  Class wraps the DS3231 object and had
  *  methods to get information from it
  */
-class Clock
-{
+class Clock {
 private:
-  DS3231 timer; 
-  boolean PM, Century=false, h12;
-  
+	DS3231 timer;
+	boolean PM, Century = false, h12;
+
 public:
-    Clock(){};
+	Clock() {
+	}
 
- /*
-  * FUNCTION GetTime()
-  * 
-  * Returns a human readable String containing the current time.
-  * 
-  * @param (void)
-  * @return String : Time
-  * 
-  */ 
-  String GetTime();
+	/*
+	 * FUNCTION GetTime()
+	 *
+	 * Returns a human readable String containing the current time.
+	 *
+	 * @param (void)
+	 * @return String : Time
+	 *
+	 */
+	String GetTime();
 
- /*
-  * FUNCTION GetDate()
-  * 
-  * Returns a human readable String containing the date.
-  * 
-  * @param (void)
-  * @return String : The date
-  * 
-  */ 
-  String GetDate();
+	/*
+	 * FUNCTION GetDate()
+	 *
+	 * Returns a human readable String containing the date.
+	 *
+	 * @param (void)
+	 * @return String : The date
+	 *
+	 */
+	String GetDate();
 
- /*
-  * FUNCTION GetTemperature()
-  * 
-  * Returns the temperature as in integer in degrees C.
-  * 
-  * @param (void)
-  * @return int : timer.getTemperature
-  * 
-  */ 
-  int GetTemperature();
+	/*
+	 * FUNCTION GetTemperature()
+	 *
+	 * Returns the temperature as in integer in degrees C.
+	 *
+	 * @param (void)
+	 * @return int : timer.getTemperature
+	 *
+	 */
+	int GetTemperature();
 };
 #endif

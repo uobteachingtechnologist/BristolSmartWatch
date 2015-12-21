@@ -14,10 +14,9 @@ Watch watch;
  * @param (void)
  * @return (void)
  * 
- */ 
-void setup()
-{
-  watch.HardwareInit();
+ */
+void setup() {
+	watch.HardwareInit();
 }
 
 /*
@@ -29,8 +28,7 @@ void setup()
  * @param (void)
  * @return (void)
  * 
- */ 
-void loop() 
-{
-  watch.Update();
+ */
+void loop() {
+	watch.Update();
 }
