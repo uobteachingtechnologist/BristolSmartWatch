@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>948</x>
+      <y>468</y>
+      <w>240</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>BluetoothManager
+--
+- HardwareController *hardwareController;
+- Notification notification;
+--
++ BluetoothController(HardwareController *hardwareController)
++ GetNotification()
++ CheckNotifications()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>714</x>
+      <y>276</y>
+      <w>126</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>ANCS_1.6.ino
+--
+- watch: Watch
+--
+- setup()
+- loop()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>468</y>
+      <w>216</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Watch
+--
+- bluetoothManager: BluetoothManager
+- hardwareController: HardwareController
+- previousMillis: unsigned long
+- interval: const long
+--
++ Controller()
++ HardwareInit()
++ Update()
+- DrawScreen()
+- CheckButtons()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>324</y>
+      <w>18</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>882</x>
+      <y>522</y>
+      <w>78</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>546</y>
+      <w>108</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Bluetooth
+--
+- mySerial: SoftwareSerial
+- rx: int
+- tx: int
+--
++ Bluetooth(int tx, int rx)
++ init()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>252</x>
+      <y>576</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1074</x>
+      <y>288</y>
+      <w>168</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>Notification
+--
+- eventId: unsigned char
+- eventFlags: unsigned char
+- categoryId: unsigned char
+- notificationUid: String
+--
++ GetEventId()
++ SetEventId(unsigned char eventId)
++ GetEventFlags()
++ SetEventFlags(unsigned char eventFlags)
++ GetCategoryId()
++ SetCategoryId(unsigned char categoryId)
++ GetNotificationUid()
++ SetNotificationUid(String notificationUid)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1140</x>
+      <y>420</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>660</y>
+      <w>228</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>NotifcationParser
+--
+
+--
++ CreateGetMessageTextRequest(Notification *notification)
++ CreateGetTitleRequest(Notification *notification)
++ ParseNotification(String buffer, Notification *notification)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1068</x>
+      <y>540</y>
+      <w>18</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1212</x>
+      <y>222</y>
+      <w>162</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;110.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>306</x>
+      <y>486</y>
+      <w>210</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>HardwareController
+--
+- ledController: LEDController
+- buttonController: ButtonController
+- screen: Screen
+- clock: Clock
+- vibrationMotor: VibrationMotor
+- bluetooth: Bluetooth
+--
++ HardwareInit()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>522</y>
+      <w>174</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>414</x>
+      <y>594</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>594</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>636</y>
+      <w>96</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>LEDController
+--
+- arduinoLED: LED
+- externalLED: LED
+--
++ TurnArduinoLEDOff()
++ TurnArduinoLEDOn()
++ TurnExternalLEDOff()
++ TurnExternalLEDOn()
++ InitialiseLEDs()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>372</x>
+      <y>636</y>
+      <w>102</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>ButtonController
+--
+- button1: Button
+- button2: Button
+- tiltscreen: Button
+--
++ IsLEDButtonPressed()
++ IsSleepButtonPressed()
++ InitialiseButtons()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>498</x>
+      <y>594</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>636</y>
+      <w>84</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Clock
+--
+- timer: DS3231
+- PM: boolean
+- Century: boolean
+- h12: boolean
+--
++ Clock()
++ GetTime()
++ GetDate()
++ GetTemperature()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>414</x>
+      <y>708</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>720</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>252</x>
+      <y>492</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>408</x>
+      <y>426</y>
+      <w>18</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>342</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Screen
+--
+- u8g: U8GLIB_SH1106_128X64*
+--
++ Screen(U8GLIB_SH1106_128X64* u8g)
++ DrawDate(String date)
++ DrawTime(String time)
++ DrawTemperature(int temperature)
++ DrawNotifications(char numOfNotifications)
++ DrawMessageSender(String sender, String subject)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>132</x>
+      <y>468</y>
+      <w>126</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>VibrationMotor
+--
+- isOn: boolean
+- pinNumber: int
+--
++ VibrationMotor(int pinNumber)
++ init()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>372</x>
+      <y>756</y>
+      <w>96</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Button
+--
+- pinNumber: int
+- previousState: boolean
+--
++ Button(int pinNumber)
++ init()
++ isPressed()
++ isHeld()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>750</y>
+      <w>90</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>LED
+--
+- isOn: boolean
+- pinNumber: int
+--
++ LED(int pinNumber)
++ init()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>72</y>
+      <w>192</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+AncsNotificationCategoryId
+--
+AncsNotificationCategoryIdOther
+AncsNotificationCategoryIdIncomingCall
+AncsNotificationCategoryIdMissedCall
+AncsNotificationCategoryIdVoicemail
+AncsNotificationCategoryIdSocial
+AncsNotificationCategoryIdSchedule
+AncsNotificationCategoryIdEmail
+AncsNotificationCategoryIdNews
+AncsNotificationCategoryIdHealthAndFitness
+AncsNotificationCategoryIdBusinessAndFinance
+AncsNotificationCategoryIdLocation
+AncsNotificationCategoryIdEntertainment
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>858</x>
+      <y>132</y>
+      <w>168</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+AncsNotificationEventFlags
+--
+AncsNotificationEventFlagsSilent
+AncsNotificationEventFlagsImportant
+AncsNotificationEventFlagsPositiveAction
+AncsNotificationEventFlagsNegativeAction
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>132</y>
+      <w>150</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+AncsNotificationEventId
+--
+AncsNotificationEventIdAdded
+AncsNotificationEventIdModified
+AncsNotificationEventIdRemoved
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>198</y>
+      <w>18</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>204</y>
+      <w>150</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>230.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

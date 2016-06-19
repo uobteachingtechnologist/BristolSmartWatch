@@ -12,24 +12,11 @@
 void Watch::HardwareInit() {
 	Wire.begin();
 	Serial.begin(9600);
-	pinMode(ARDUINO_LED, OUTPUT);
-	digitalWrite(ARDUINO_LED, LOW);
-
-	//Button number 1 ************************************************************************************
-	pinMode(BUTTON_1, INPUT_PULLUP);           // set pin to input
-	digitalWrite(BUTTON_1, HIGH);
-
-	//Button number 2 ************************************************************************************
-	pinMode(BUTTON_2, INPUT_PULLUP);           // set pin to input
-	digitalWrite(BUTTON_2, HIGH);
-
+  hardwareController->Init();
+  
 	//tilt screen ************************************************************************************
 	pinMode(TILT_SWITCH, INPUT_PULLUP);           // set pin to input
 	digitalWrite(TILT_SWITCH, LOW);
-
-	// FlashLight  ************************************************************************************
-	pinMode(EXTERNAL_LED, OUTPUT);
-	digitalWrite(EXTERNAL_LED, LOW);
 
 	//Vibration Motor should be connected to GND  ************************************************************************************
 	pinMode(VIBRATION_MOTOR, OUTPUT);
@@ -53,7 +40,7 @@ void Watch::Update() {
 	if (currentMillis - previousMillis >= interval) {
 		previousMillis = currentMillis;
 		DrawScreen();
-		BluetoothCommunications();
+		bluetoothManager->CheckNotifications();
 	}
 	CheckButtons();
 }
@@ -82,27 +69,12 @@ void Watch::CheckButtons() {
  * 
  */
 void Watch::CheckLEDButton() {
-	if (digitalRead(BUTTON_1) == LOW) {
-		delay(100);
-		isExternalLEDOn = !isExternalLEDOn;
-	}
-	UpdateExternalLEDState();
-}
-
-/*
- * FUNCTION UpdateExternalLEDState()
- * 
- * Updates the external LED state.     
- * 
- * @param (void)     
- * @return (void)
- * 
- */
-void Watch::UpdateExternalLEDState() {
-	if (isExternalLEDOn) {
-		digitalWrite(EXTERNAL_LED, HIGH);
-	} else {
-		digitalWrite(EXTERNAL_LED, LOW);
+	if (hardwareController->IsButtonPressed(0)) {
+    if (hardwareController->IsLEDOff(1)){
+      hardwareController->TurnOnLED(1);
+    } else {
+      hardwareController->TurnOffLED(1);
+    }
 	}
 }
 
@@ -116,8 +88,7 @@ void Watch::UpdateExternalLEDState() {
  * 
  */
 void Watch::CheckScreenOffButton() {
-	if (digitalRead(BUTTON_2) == LOW) {
-		delay(100);
+	if (hardwareController->IsButtonPressed(1)) {
 		isScreenOff = !isScreenOff;
 	}
 }
@@ -132,45 +103,14 @@ void Watch::CheckScreenOffButton() {
  * @return (void)
  * 
  */
-void Watch::DrawScreen(void) {
-	u8g.firstPage();
+void Watch::DrawScreen() {
+	hardwareController->SetFirstPage();
 	do {
-		displayScreen.DrawNotifications(numberOfNotifications);
-		displayScreen.DrawTime(clock.GetTime());
-		displayScreen.DrawDate(clock.GetDate());
-		displayScreen.DrawTemperature(clock.GetTemperature());
-	} while (u8g.nextPage());
+		hardwareController->DrawNotifications(numberOfNotifications);
+		hardwareController->DrawTime();
+		hardwareController->DrawDate();
+		hardwareController->DrawTemperature();
+	} while (hardwareController->HasNextPage());
 }
 
-/*
- * FUNCTION BluetoothCommuncations()
- * 
- * Calls BluetoothCommuncation.Read() to read any information
- * over Bluetooth. Writes a notification to the screen if 
- * there is a new notifcation and also vibrates.
- * 
- * @param (void)
- * @return (void)
- * 
- */
-void Watch::BluetoothCommunications() {
-	bluetoothCommunication.Read();
-
-	if (bluetoothCommunication.GetNewMessage()) {
-		displayScreen.DrawMessageSender(bluetoothCommunication.GetName(),
-				bluetoothCommunication.GetSubject());
-		bluetoothCommunication.SetNewMessage(false);
-
-		//Time to display message
-		delay(2000);
-	}
-
-	int temp = bluetoothCommunication.GetNumber();
-	if (temp != numberOfNotifications && temp > '0') {
-		digitalWrite(VIBRATION_MOTOR, HIGH);
-		delay(300);
-		digitalWrite(VIBRATION_MOTOR, LOW);
-	}
-	numberOfNotifications = bluetoothCommunication.GetNumber();
-}
 

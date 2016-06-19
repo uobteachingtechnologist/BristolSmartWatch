@@ -1,12 +1,12 @@
 #ifndef WATCH_H
 #define WATCH_H
 
-#include "Clock.h"
-#include "BluetoothCommunication.h"
+#include "BluetoothManager.h"
 #include "Screen.h"
+#include "HardwareController.h"
 
 /*
- *  CLASS Controller
+ *  CLASS Watch
  *  
  *  Class used to control the watch
  *  and associated functions.
@@ -14,6 +14,8 @@
 class Watch {
 private:
 	// Pin numbers
+  HardwareController *hardwareController;
+  BluetoothManager *bluetoothManager;;
 	const int ARDUINO_LED = 17;
 	const int BUTTON_1 = 8;
 	const int BUTTON_2 = 6;
@@ -37,7 +39,7 @@ private:
 
 	SoftwareSerial bluetoothSerial; // RX, TX
 
-	BluetoothCommunication bluetoothCommunication;
+	//BluetoothCommunication bluetoothCommunication;
 
 	/*
 	 * FUNCTION CheckButtons()
@@ -94,24 +96,12 @@ private:
 	 */
 	void DrawScreen();
 
-	/*
-	 * FUNCTION BluetoothCommuncations()
-	 *
-	 * Calls BluetoothCommuncation.Read() to read any information
-	 * over Bluetooth. Writes a notification to the screen if
-	 * there is a new notifcation and also vibrates.
-	 *
-	 * @param (void)
-	 * @return (void)
-	 *
-	 */
-	void BluetoothCommunications();
 public:
 	Watch()
 	// Using initialiser list to initialise the objects.
-	:
-			bluetoothSerial(RX, TX), bluetoothCommunication(&bluetoothSerial), u8g(
-					U8G_I2C_OPT_NO_ACK), displayScreen(&u8g) {
+	  :	bluetoothSerial(RX, TX), u8g(U8G_I2C_OPT_NO_ACK), displayScreen(&u8g) {
+    hardwareController = new HardwareController();
+    bluetoothManager = new BluetoothManager(hardwareController);
 	}
 	;
 
