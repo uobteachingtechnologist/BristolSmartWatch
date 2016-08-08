@@ -20,8 +20,16 @@ unsigned char Notification::GetCategoryId() {
   return categoryId;
 }
 
-void Notification::SetCategoryId(unsigned char catergoryId) {
+void Notification::SetCategoryId(unsigned char categoryId) {
   this->categoryId = categoryId;
+}
+
+int Notification::GetCategoryCount() {
+  return categoryCount;
+}
+
+void Notification::SetCategoryCount(int categoryCount) {
+  this->categoryCount = categoryCount;
 }
 
 String Notification::GetNotificationUid() {

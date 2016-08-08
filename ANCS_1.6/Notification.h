@@ -128,11 +128,34 @@ class Notification {
     *
     */
     void SetNotificationUid(String notificationUid);
+    
+    /*
+    * FUNCTION GetCategoryCount()
+    *
+    * Gets the notification category count.
+    *
+    * @param (void)
+    * @return (int categoryCount)
+    *
+    */
+    int GetCategoryCount();
+
+    /*
+    * FUNCTION SetCategoryCount()
+    *
+    * Sets the notification category count.
+    *
+    * @param (int categoryCount)
+    * @return (void)
+    *
+    */
+    void SetCategoryCount(int categoryCount);
 
   private:
-    unsigned char eventId;
-    unsigned char eventFlags;
-    unsigned char categoryId;
-    String notificationUid;
+    unsigned char eventId = 0;
+    unsigned char eventFlags = 0;
+    unsigned char categoryId = 0;
+    String notificationUid = "";
+    int categoryCount = 0;
 };
 #endif

@@ -12,6 +12,8 @@
 void Watch::HardwareInit() {
 	Wire.begin();
 	Serial.begin(9600);
+//  while (!Serial) ; // TODO Remove
+  Serial.println("Watch::HardwareInit() called."); // TODO remove
   hardwareController->Init();
   
 	//tilt screen ************************************************************************************
@@ -22,7 +24,8 @@ void Watch::HardwareInit() {
 	pinMode(VIBRATION_MOTOR, OUTPUT);
 	digitalWrite(VIBRATION_MOTOR, LOW);
 
-	bluetoothSerial.begin(9600);
+  bluetoothManager = new BluetoothManager(hardwareController);
+//	bluetoothSerial.begin(9600);
 }
 
 /*
@@ -40,7 +43,6 @@ void Watch::Update() {
 	if (currentMillis - previousMillis >= interval) {
 		previousMillis = currentMillis;
 		DrawScreen();
-		bluetoothManager->CheckNotifications();
 	}
 	CheckButtons();
 }
@@ -106,7 +108,7 @@ void Watch::CheckScreenOffButton() {
 void Watch::DrawScreen() {
 	hardwareController->SetFirstPage();
 	do {
-		hardwareController->DrawNotifications(numberOfNotifications);
+		hardwareController->DrawNotifications(bluetoothManager->GetNumberOfNotifications());
 		hardwareController->DrawTime();
 		hardwareController->DrawDate();
 		hardwareController->DrawTemperature();

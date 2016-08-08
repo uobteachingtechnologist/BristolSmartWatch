@@ -12,12 +12,40 @@
 boolean BluetoothManager::CheckNotifications() {
   String data = hardwareController->GetData();
   if (data != "") {
-    Notification *notification;
-    ParseNotification(data, notification);
-    return true;
+    notification = new Notification();
+    if (ParseNotification(data, notification)) {
+      if (notification->GetEventId() == AncsNotificationEventIdAdded) {
+        numberOfNotifications++;
+      } else if (notification->GetEventId() == AncsNotificationEventIdRemoved) {
+        if (numberOfNotifications > 0)
+          numberOfNotifications--;
+      }
+
+      AlertUser();
+
+      return true;
+    }
   }
   return false;
 }
 
+int BluetoothManager::GetNumberOfNotifications() {
+  CheckNotifications();
+  return numberOfNotifications;
+}
 
+void BluetoothManager::AlertUser() {
+  // Flash LED / vibration motor
+  hardwareController->TurnOnLED(1);
+  hardwareController->TurnOnVibrationMotor();
+  delay(200);
+  hardwareController->TurnOffLED(1);
+  hardwareController->TurnOffVibrationMotor();
+  delay(200);
+  hardwareController->TurnOnLED(1);
+  hardwareController->TurnOnVibrationMotor();
+  delay(200);
+  hardwareController->TurnOffLED(1);
+  hardwareController->TurnOffVibrationMotor();
+}
 

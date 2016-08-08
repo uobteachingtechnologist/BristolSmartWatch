@@ -4,6 +4,7 @@ void HardwareController::Init(){
   ledController->Init();
   buttonController->Init();
   vibrationMotor->Init();
+  bluetooth->Init();
 }
 
 void HardwareController::TurnOnLED(int id){

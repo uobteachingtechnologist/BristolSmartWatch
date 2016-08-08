@@ -15,7 +15,7 @@ class Watch {
 private:
 	// Pin numbers
   HardwareController *hardwareController;
-  BluetoothManager *bluetoothManager;;
+  BluetoothManager *bluetoothManager;
 	const int ARDUINO_LED = 17;
 	const int BUTTON_1 = 8;
 	const int BUTTON_2 = 6;
@@ -28,7 +28,7 @@ private:
 	boolean isExternalLEDOn = false;
 	boolean isScreenOff = false;
 	Clock clock;
-	int numberOfNotifications;
+	int numberOfNotifications = 0;
 
 	unsigned long previousMillis = 0; // Stores last time watch was updated
 	const long interval = 1000; // interval at which to check for watch updates (milliseconds)

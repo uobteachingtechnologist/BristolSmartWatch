@@ -5,6 +5,10 @@
 #include "Watch.h"
 #include "HardwareController.h"
 
+/*
+ * TODO:
+ *  - fix UML
+ */
 
 Watch watch;
 
@@ -34,3 +38,4 @@ void setup() {
 void loop() {
   watch.Update();
 }
+

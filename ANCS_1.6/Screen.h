@@ -57,7 +57,7 @@ public:
 	 * @param (char numOfNotifications) Number
 	 * @return (void)
 	 */
-	void DrawNotifications(char numOfNotifications);
+	void DrawNotifications(int numOfNotifications);
 
 	/*
 	 * FUNCTION DrawNotifications()

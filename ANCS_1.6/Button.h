@@ -5,13 +5,16 @@
 class Button {
   private:
     int pin;
-    int defaultValue;
-    int previousState;
+    int buttonState = HIGH; //this variable tracks the state of the button, low if not pressed, high if pressed
+    int outputState = 0; //this variable tracks the state of the LED, negative if off, positive if on
+ 
+    long lastDebounceTime = 0;  // the last time the output pin was toggled
+    long debounceDelay = 100;    // the debounce time; increase if the output flickers
+ 
   public:
     Button(int pin, int defaultValue) {
       this->pin = pin;
-      this->defaultValue = defaultValue;
-      this->previousState = defaultValue;
+      this->buttonState = buttonState;
     }
 
     /*

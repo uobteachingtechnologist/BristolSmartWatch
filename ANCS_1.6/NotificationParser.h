@@ -32,9 +32,9 @@ String CreateGetTitleRequest(Notification *notification);
  * Parses string into notification.
  *
  * @param (String buffer, Notification *notification)
- * @return (void)
+ * @return boolean : did buffer parse correctly
  *
  */
-void ParseNotification(String buffer, Notification *notification);
+boolean ParseNotification(String buffer, Notification *notification);
 
 #endif

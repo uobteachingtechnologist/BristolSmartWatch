@@ -17,7 +17,8 @@
 class BluetoothManager {
   private:
     HardwareController *hardwareController;
-    Notification notification;
+    Notification *notification;
+    int numberOfNotifications = 0;
   public:
     BluetoothManager(HardwareController *hardwareController) {
       this->hardwareController = hardwareController;
@@ -29,12 +30,12 @@ class BluetoothManager {
      *
      * Returns the last received notification.
      *
-     * @param (void)
-     * @return bolean
+     * @param (Notification : notification)
+     * @return (void)
      *
      */
     void GetNotification(Notification *notification) {
-      notification = &this->notification;
+      notification = this->notification;
     }
 
     /*
@@ -43,9 +44,31 @@ class BluetoothManager {
      * Checks if there is a new notification and, if so, returns true. Otherwise false.
      *
      * @param (void)
-     * @return bolean
+     * @return bolean : new notification received
      *
      */
     boolean CheckNotifications();
+
+    /*
+     * FUNCTION GetNumberOfNotifications()
+     *
+     * Returns number of notifications.
+     *
+     * @param (void)
+     * @return int : number of notifications
+     *
+     */
+    int GetNumberOfNotifications();
+
+    /*
+     * FUNCTION AlertUser()
+     *
+     * Alerts the user to a new notification.
+     *
+     * @param (void)
+     * @return (void)
+     *
+     */
+    void AlertUser();
 };
 #endif

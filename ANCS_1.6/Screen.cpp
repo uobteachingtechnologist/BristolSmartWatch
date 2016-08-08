@@ -65,13 +65,13 @@ void Screen::DrawTemperature(int temperature) {
  * @return (void)
  * 
  */
-void Screen::DrawNotifications(char numOfNotifications) {
-	if (numOfNotifications != '0') {
+void Screen::DrawNotifications(int numOfNotifications) {
+	if (numOfNotifications > 0) {
 		u8g->setFont(u8g_font_5x7);
 		u8g->setPrintPos(0, 10);
 		u8g->print(numOfNotifications);
 		u8g->setPrintPos(10, 10);
-		if (numOfNotifications == '1') {
+		if (numOfNotifications == 1) {
 			u8g->print("New Notification");
 		} else {
 			u8g->print("New Notifications");
