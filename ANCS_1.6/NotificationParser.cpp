@@ -7,18 +7,19 @@
  */
 
 String CreateGetMessageTextRequest(Notification *notification) {
-  return String("AT+ANCS:0") + notification->GetNotificationUid() + String("3FF");
+  return String("AT+ANCS") + notification->GetNotificationUid() + String("392");
 }
 
 String CreateGetTitleRequest(Notification *notification) {
-  return String("AT+ANCS:1") + notification->GetNotificationUid() + String("3FF");
+  return String("AT+ANCS") + notification->GetNotificationUid() + String("122");
 }
 
 
 boolean ParseNotification(String buffer, Notification *notification) {
   // https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/AppleNotificationCenterServiceSpecification/Specification/Specification.html#//apple_ref/doc/uid/TP40013460-CH1-SW7
   // http://files.meetup.com/2563682/iot-ancs.pdf
-  if (buffer.length() != 16) // incorrect message
+  Serial.println(buffer);
+  if (buffer.length() != 16 || !buffer.startsWith("OK+ANCS")) // incorrect message
     return false;
   buffer.remove(0, 8);
   notification->SetEventId((unsigned char)(buffer[0]) - '0');

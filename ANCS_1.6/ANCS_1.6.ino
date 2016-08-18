@@ -5,11 +5,6 @@
 #include "Watch.h"
 #include "HardwareController.h"
 
-/*
- * TODO:
- *  - fix UML
- */
-
 Watch watch;
 
 /*
