@@ -37,7 +37,7 @@ boolean Button::IsPressed() {
       return true;
     }
     else if ( (buttonState == LOW) && (outputState == 1) ) {
-       outputState = 0; //now the LED is off, we need to change the state
+      outputState = 0; //now the LED is off, we need to change the state
       lastDebounceTime = millis(); //set the current time
       return false;
     }//close if/else

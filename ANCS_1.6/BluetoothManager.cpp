@@ -20,11 +20,11 @@ boolean BluetoothManager::CheckNotifications() {
         if (numberOfNotifications > 0)
           numberOfNotifications--;
       }
-
       AlertUser();
-
+      delete(notification);
       return true;
     }
+    delete(notification);
   }
   return false;
 }

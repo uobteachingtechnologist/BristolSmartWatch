@@ -12,8 +12,6 @@
 void Watch::HardwareInit() {
 	Wire.begin();
 	Serial.begin(9600);
-//  while (!Serial) ; // TODO Remove
-  Serial.println("Watch::HardwareInit() called."); // TODO remove
   hardwareController->Init();
   
 	//tilt screen ************************************************************************************
@@ -25,7 +23,6 @@ void Watch::HardwareInit() {
 	digitalWrite(VIBRATION_MOTOR, LOW);
 
   bluetoothManager = new BluetoothManager(hardwareController);
-//	bluetoothSerial.begin(9600);
 }
 
 /*
